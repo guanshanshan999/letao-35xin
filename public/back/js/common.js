@@ -2,7 +2,7 @@
 
 
 $(document).ajaxStart(function () {
-  console.log(123);
+  // console.log(123);
 
   // 开启进度条
   NProgress.start();
