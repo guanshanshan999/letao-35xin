@@ -27,11 +27,11 @@
 <!-- 导航 -->
 <div class="nav">
   <ul>
-    <li><a class="current" href="user.html"><i class="glyphicon glyphicon-user"></i><span>用户管理</span></a></li>
+    <li><a href="user.html"><i class="glyphicon glyphicon-user"></i><span>用户管理</span></a></li>
     <li>
       <a class="category" href="javascript:;"><i class="glyphicon glyphicon-list"></i><span>分类管理</span></a>
       <div class="child">
-        <a href="first.html">一级分类</a>
+        <a class="current" href="first.html">一级分类</a>
         <a href="second.html">二级分类</a>
       </div>
     </li>
@@ -52,22 +52,23 @@
  <!-- 路径导航 -->
  <ol class="breadcrumb mt_20">
     <li><a href="index.html">管理系统</a></li>
-    <li class="active">首页</li>
+    <li class="active">分类管理</li>
+    <li class="active">一级分类</li>
  </ol>
 <!-- 不一样的地方 -->
 <div class="It_content">
-<table class="table table-bordered table-hover">
+  <!-- 添加分类按钮 -->
+  <button class="btn btn-default" id="addBtn">添加分类</button>
+<table class="table table-bordered table-hover mt_20">
  <thead>
      <tr>
-         <th>序号</th>
-         <th>用户名</th>
-         <th>手机号</th>
-         <th>状态</th>
-         <th>操作</th>
+        <th>序号</th>
+        <th>一级分类名</th>
      </tr>
  </thead>
 <tbody>
    <!-- 挖个坑 -->
+   
 </tbody>
 </table>
 
@@ -133,22 +134,13 @@
 </div>
 
 <!-- 创建模板引擎 -->
-<script type="text/html" id="userTpl">
-    {{ each rows v i}}
-   <tr>
-        <td>{{i+1+(page-1)*size}}</td>
-        <td>{{v.username}}</td>
-        <td>{{v.mobile}}</td>
-        <td>{{v.isDelete===1?'正常':'已禁用'}}</td>
-        <td data-id={{v.id}}>
-            {{ if v.isDelete===1}}
-            <button class="btn btn-danger">禁用</button> 
-            {{ else }}
-            <button class="btn btn-success">启用</button> 
-            {{ /if }}
-        </td>
-    </tr>
-    {{/each}}
+<script type="text/html" id="firstTpl">
+  {{ each rows v i }}
+  <tr>
+  <td>{{i+1+(page-1)*size}}</td>
+  <td>{{v.categoryName}}</td>
+</tr>
+  {{/each}}
 </script>
 
 
@@ -161,7 +153,7 @@
   <script src="./lib/bootstrap-paginator/bootstrap-paginator.js"></script>
   <script src="./js/common.js"></script>
   <script src="./js/isLogin.js"></script>
-  <script src="./js/user.js"></script>
+  <script src="./js/first.js"></script>
   
   
 
