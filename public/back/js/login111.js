@@ -80,7 +80,7 @@ $(function() {
         data: $('#form').serialize(),
         dataType: 'json',
         success: function( info ) {
-          console.log( info );
+        //   console.log( info );
   
           if (info.error === 1000) {
             var validator = $("#form").data('bootstrapValidator'); 
@@ -96,5 +96,22 @@ $(function() {
         }
       })
   
-    })
+    });
+
+  /* 
+    3. 表单重置功能
+       reset 按钮, 本身就可以重置内容, 所以此时只需要重置状态即可
+       resetForm(false);  只重置状态
+       resetForm(true);   重置内容和状态
+  */
+ 
+//  console.log($('[type="reset"]'));
+ 
+ $('[type="reset"]').click(function(){
+     // 重置状态即可
+     $('#form').data('bootstrapValidator').resetForm();
+    
+})
+
+
   });
