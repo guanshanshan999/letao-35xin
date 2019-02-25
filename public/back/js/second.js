@@ -45,7 +45,38 @@ $('tbody').html(htmlStr)
 
 $('#addBtn').on('click',function(){
     $('#addModal').modal('show');
+    //在点击按钮时, 就发送ajax请求
+
+
+    // 发送请求, 获取一级分类的全部数据, 将来用于渲染
+     // 根据已有接口, 模拟获取全部数据的接口, page:1  pageSize:100
+
+   $.ajax({  
+    url:'/category/queryTopCategoryPaging',
+    type:'get',
+    data:{
+     page:1,
+     pageSize:100,
+    },
+    dataType:'json',
+    success:function(info){
+     console.log(info);
+     var htmlStr = template('secondTpl2',info);
+     $('.dropdown-menu').html(htmlStr);
+     
+    }
+  })
+ });
+// 3. 给下拉菜单添加可选功能
+$('.dropdown-menu').on('click','a',function(){
+
+var txt = $(this).text();
+
+//赋值给button按钮 span显示
+$('#dropdownText').text(txt);
+
 })
 
 
-})
+
+});

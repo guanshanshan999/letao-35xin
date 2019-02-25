@@ -105,16 +105,14 @@
                         <!-- 按钮 -->
                         <button class="btn btn-default dropdown-toggle" type="button"
                             data-toggle="dropdown" >
-                             <span>请选择一级分类</span>
+                             <span id="dropdownText">请选择一级分类</span>
                             <span class="caret"></span>   <!-- 小箭头 -->
                         </button>
                         <!-- 切换下拉菜单 -->
                         <ul class="dropdown-menu">
                             <!-- 挖个坑 -->
-                            <li><a href="#">Action</a></li>
-                            <li><a href="#">Another action</a></li>
-                            <li><a href="#">Something else here</a></li>
-                            <li><a href="#">Separated link</a></li>
+                            <!-- <li><a href="#">Action</a></li> -->
+                         
                         </ul>
                     </div>
                 </div>
@@ -125,7 +123,7 @@
                     <button class="btn btn-default">选择图片</button>
                 </div>
                 <div class="form-group">
-                    <img style="height:100px;" src="./images/none.png" alt="">
+                    <img style="height:100px" src="./images/none.png" alt="">
                 </div>
             </div>
             <div class="modal-footer">
@@ -178,6 +176,15 @@
   </tr>
   {{ /each }}
 </script>
+
+    <!-- 创建模板引擎 -->
+    <script type="text/html" id="secondTpl2">
+        {{ each rows v i}}
+        <li><a href="#">{{v.categoryName}}</a></li>
+   
+        {{ /each }}
+      </script>
+      
 
 
     <script src="./lib/jquery/jquery.js"></script>
