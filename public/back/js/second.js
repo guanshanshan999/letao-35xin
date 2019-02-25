@@ -14,7 +14,7 @@ $(function(){
     },
     dataType:'json',
     success:function(info){
-      console.log(info);
+    //   console.log(info);
       //渲染页面
 var htmlStr = template('secondTpl',info);
 $('tbody').html(htmlStr)
@@ -60,7 +60,7 @@ $('#addBtn').on('click',function(){
     },
     dataType:'json',
     success:function(info){
-     console.log(info);
+    //  console.log(info);
      var htmlStr = template('secondTpl2',info);
      $('.dropdown-menu').html(htmlStr);
      
@@ -71,11 +71,104 @@ $('#addBtn').on('click',function(){
 $('.dropdown-menu').on('click','a',function(){
 
 var txt = $(this).text();
+var id = $(this).data('id');
 
 //赋值给button按钮 span显示
 $('#dropdownText').text(txt);
 
+//赋值给隐藏域
+$('[name="categoryId"]').val(id);
+
+//只要隐藏域有值了.就更新成成功状态
+$('#form').data('bootstrapValidator').updateStatus('categoryId','VALID')
+
+});
+//完成文件初始化
+$('#fileupload').fileupload({
+    dataType: 'json',
+    //文件上传完成时的回调函数
+    done: function(e,data){
+       console.log(data);
+    var picUrl = data.result.picAddr;
+    
+    //获取图片地址 设置给img 的src
+    $('#imgBox img').attr('src',picUrl);
+    //然后在赋值给隐藏域 input 的value
+    $('[name="brandLogo"]').val(picUrl);
+
+// 只要隐藏域有值了, 就是更新成成功状态
+$('#form').data('bootstrapValidator').updateStatus('brandLogo','VALID');
+
+    }
 })
+
+// 5. 直接进行校验
+$('#form').bootstrapValidator({
+//配置 excluded 排除项,对隐藏域完成校验
+excluded:[],
+//配置图标
+feedbackIcons: {
+    valid: 'glyphicon glyphicon-ok',
+    invalid: 'glyphicon glyphicon-remove',
+    validating: 'glyphicon glyphicon-refresh'
+  },
+  //配置校验字段
+fields: {
+// 选择一级分类 
+ categoryId: {
+    validators: {
+        notEmpty: {
+            message: '请选择一级分类'
+        }
+    }
+ },
+
+ brandName: {
+    validators: {
+        notEmpty: {
+            message: '请输入二级分类'
+        }
+    }
+ },
+ brandLogo: {
+    validators: {
+        notEmpty: {
+            message: '请输入选择图片'
+        }
+    }
+ }
+}
+});
+console.log($('#form').serialize());
+
+//注册表单校验成功事件,阻止默认的提交,通过ajax提交
+$('#form').on('success.form.bv',function(e){
+    e.preventDefault();
+
+    $.ajax({
+        url:'/category/addSecondCategory',
+        type:'post',
+        data:$('#form').serialize(),
+        dataType:'json',
+        success:function(info){
+           console.log(info);
+       //关闭模态框  
+          $('#addModal').modal('hide');
+       //重新渲染
+       currentPage=1;
+       render();
+
+       //将表单元素重置(内容和状态)
+       $('#form').data('bootstrapValidator').resetForm(true);
+      //button 和 img 不是表单元素,手动重置
+      $('#dropdownText').text('请选择一级分类');
+      $('#imgBox img').attr(src,'./images/none.png');
+      
+           
+        }
+    })
+})
+
 
 
 
