@@ -162,7 +162,7 @@ $('#form').on('success.form.bv',function(e){
        $('#form').data('bootstrapValidator').resetForm(true);
       //button 和 img 不是表单元素,手动重置
       $('#dropdownText').text('请选择一级分类');
-      $('#imgBox img').attr(src,'./images/none.png');
+      $('#imgBox img').attr('src','./images/none.png');
       
            
         }
